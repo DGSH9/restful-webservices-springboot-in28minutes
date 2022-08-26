@@ -1,5 +1,6 @@
 package com.dgsh.rest.web.services.restfulwebservices.user;
 
+import java.awt.desktop.UserSessionEvent;
 import java.net.URI;
 import java.util.List;
 
@@ -27,7 +28,12 @@ public class UserController {
 	// Get Single USer
 	@GetMapping("/users/{id}")
 	public User findUserById(@PathVariable("id") int id) {
-		return userDaoService.findUserById(id);
+		User user= userDaoService.findUserById(id);
+		if(user==null) {
+			throw new UserNotFoundException("id-"+id);
+		}
+		return user;
+		
 	}
 
 	// Save User

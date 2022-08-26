@@ -1,24 +1,29 @@
 package com.dgsh.rest.web.services.restfulwebservices.user;
 
-import java.awt.desktop.UserSessionEvent;
+
 import java.net.URI;
 import java.util.List;
+import java.util.Locale;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 public class UserController {
+	
+	@Autowired
+	private MessageSource messageSource;
 
 	@Autowired
 	private UserDaoService userDaoService;
@@ -36,6 +41,7 @@ public class UserController {
 		if(user==null) {
 			throw new UserNotFoundException("id-"+id);
 		}
+		//HATEOAS
 		return user;
 	}
 
@@ -62,6 +68,13 @@ public class UserController {
 		if(user==null) {
 			throw new UserNotFoundException("id-"+id);
 		}
+	}
+	
+	
+	//Intenationalization localeSources
+	@GetMapping("/hello-world-internationalized")
+	public String helloWorldInternationalized(@RequestHeader(name="Accept-Language",required = false) Locale locale) {
+		return messageSource.getMessage("good.morning.message", null, locale);
 	}
 	
 	

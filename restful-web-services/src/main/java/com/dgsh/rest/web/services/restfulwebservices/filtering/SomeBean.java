@@ -1,9 +1,11 @@
 package com.dgsh.rest.web.services.restfulwebservices.filtering;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties(value = {"field1","field2"})
+//@JsonIgnoreProperties(value = {"field1","field2"})
+@JsonFilter("SomeBean")
 public class SomeBean {
 	
 	private String field1;
